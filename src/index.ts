@@ -86,7 +86,7 @@ app.get("/webhook", (req: Request, res: Response) => {
 // 🔌 API INTERNA (Rutas delegadas)
 // ==========================================
 // 🚨 AQUÍ ESTABA EL ERROR: Agregamos el /admin para que coincida con tu Frontend 🚨
-app.use("/api/admin", apiRoutes);
+app.use("/api", apiRoutes);
 
 // --- HELPER: FILTRO ANTI-TELEPATÍA ---
 const esUbicacionRelativa = (texto: string): boolean => {
