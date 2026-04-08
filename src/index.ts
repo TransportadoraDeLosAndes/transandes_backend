@@ -34,7 +34,7 @@ const server = http.createServer(app);
 // 👉 3. Inicializamos Socket.io y lo exportamos para usarlo en otros archivos
 export const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173"], // Permite conexión desde tu React
+    origin: ["http://localhost:5173","'https://transandes-frontend.vercel.app'"], // Permite conexión desde tu React
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   },
