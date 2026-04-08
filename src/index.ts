@@ -34,7 +34,7 @@ const server = http.createServer(app);
 // 👉 3. Inicializamos Socket.io y lo exportamos para usarlo en otros archivos
 export const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173","'https://transandes-frontend.vercel.app'"], // Permite conexión desde tu React
+    origin: ["http://localhost:5173", "https://transandes-frontend.vercel.app"], // Permite conexión desde tu React
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   },
@@ -54,7 +54,7 @@ io.on("connection", (socket) => {
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173", "https://transandes-frontend.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
@@ -85,7 +85,8 @@ app.get("/webhook", (req: Request, res: Response) => {
 // ==========================================
 // 🔌 API INTERNA (Rutas delegadas)
 // ==========================================
-app.use("/api", apiRoutes);
+// 🚨 AQUÍ ESTABA EL ERROR: Agregamos el /admin para que coincida con tu Frontend 🚨
+app.use("/api/admin", apiRoutes);
 
 // --- HELPER: FILTRO ANTI-TELEPATÍA ---
 const esUbicacionRelativa = (texto: string): boolean => {
@@ -262,7 +263,7 @@ const procesarFlujoBot = async (
         console.log(
           `🚫 [DB] Viaje cancelado por el cliente ${telefonoCliente}. El despachador ya no lo verá como pendiente.`,
         );
-        io.emit('viajes_actualizados');
+        io.emit("viajes_actualizados");
       }
     } catch (error) {
       console.error(
@@ -732,7 +733,7 @@ const procesarFlujoBot = async (
               `✅ [DB] Viaje inmediato guardado exitosamente para ${telefonoCliente}`,
             );
 
-            io.emit('viajes_actualizados');
+            io.emit("viajes_actualizados");
 
             // 🚀 DISPARAMOS EL COHETE HACIA EL GRUPO DE TELEGRAM
             await enviarAlertaNuevoViaje(
@@ -985,7 +986,7 @@ const procesarFlujoBot = async (
               `✅ [DB] Planilla FUEC guardada exitosamente para ${telefonoCliente}`,
             );
 
-            io.emit('viajes_actualizados');
+            io.emit("viajes_actualizados");
 
             // 🚀 DISPARAMOS LA ALERTA ADMINISTRATIVA A TELEGRAM
             await enviarAlertaViajeAgendado(nuevoAgendamiento);
@@ -1159,7 +1160,7 @@ const procesarFlujoBot = async (
             console.log(
               `⭐ [DB] Calificación de ${estrellas} estrellas guardada para ${telefonoCliente}`,
             );
-            io.emit('viajes_actualizados');
+            io.emit("viajes_actualizados");
           } catch (error) {
             console.error("❌ Error guardando calificación en MongoDB:", error);
           }
@@ -1198,7 +1199,7 @@ const procesarFlujoBot = async (
             console.log(
               `📝 [DB] Comentario guardado para el viaje de ${telefonoCliente}`,
             );
-            io.emit('viajes_actualizados');
+            io.emit("viajes_actualizados");
           } catch (error) {
             console.error(
               "❌ Error guardando el comentario en MongoDB:",
