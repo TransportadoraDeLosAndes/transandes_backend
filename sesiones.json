@@ -1,0 +1,12 @@
+{
+  "573134820552": {
+    "telefono": "573134820552",
+    "estado": "ESPERANDO_NOMBRE",
+    "datosTemporales": {
+      "origen": "Hola",
+      "destino": "Hola"
+    },
+    "ultimaInteraccion": "2026-02-22T01:47:22.244Z",
+    "nombre": "Hola"
+  }
+}
