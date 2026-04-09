@@ -169,7 +169,7 @@ const estaAsesorDisponible = (): boolean => {
 
 // --- FUNCIÓN DEL CRONÓMETRO DE BÚSQUEDA ---
 const iniciarTemporizadorBusqueda = (telefonoCliente: string) => {
-  const TIEMPO_ESPERA = 30 * 1000;
+  const TIEMPO_ESPERA = 5 * 60 * 1000;
 
   const timerId = setTimeout(async () => {
     const sesionActualizada = obtenerSesion(telefonoCliente);
