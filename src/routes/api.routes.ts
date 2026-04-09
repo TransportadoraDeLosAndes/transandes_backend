@@ -9,7 +9,7 @@ router.get("/viajes", obtenerViajes);
 router.post("/asignar-conductor", asignarConductor);
 router.post("/viaje-completado", viajeCompletado);
 
-// 🚀 NUEVO: Conectamos las rutas de administrador bajo el prefijo /admin
+//Conectamos las rutas de administrador bajo el prefijo /admin
 router.use("/admin", adminRoutes);
 
 export default router;
