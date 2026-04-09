@@ -5,7 +5,6 @@ import { enviarMensajeTexto, enviarBotones } from "./whatsapp.service.js";
 import { actualizarSesion } from "./session.service.js";
 import { EstadoBot } from "../types.js";
 import { ConductorModel } from "../models/conductor.model.js";
-// 👉 NUEVO: Importamos la antena de radio desde el archivo principal
 import { getIO } from "../index.js"; 
 
 dotenv.config();
@@ -149,7 +148,6 @@ telegramBot.on("callback_query", async (query) => {
       );
 
       if (viajeActualizado) {
-        // 👉 NUEVO: ¡Gritamos a React que el viaje cambió a ASIGNADO!
         getIO().emit('viajes_actualizados');
 
         await telegramBot.answerCallbackQuery(query.id, {
@@ -239,8 +237,7 @@ telegramBot.on("callback_query", async (query) => {
         { new: true },
       );
 
-      if (viajeCompletado) {
-        // 👉 NUEVO: ¡Gritamos a React que el viaje cambió a COMPLETADO!
+      if (viajeCompletado) {!
         getIO().emit('viajes_actualizados');
 
         await telegramBot.answerCallbackQuery(query.id, {

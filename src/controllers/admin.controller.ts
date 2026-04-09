@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
-// Importamos los modelos de la base de datos
 import { AdminModel } from "../models/admin.model.js";
 import { ConductorModel } from "../models/conductor.model.js";
 import { ViajeModel } from "../models/viaje.model.js";

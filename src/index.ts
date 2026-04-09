@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
-// 👉 1. Nuevas importaciones para WebSockets
 import http from "http";
 import { Server } from "socket.io";
 
@@ -28,10 +27,8 @@ const app = express();
 // ==========================================
 // ⚡ CONFIGURACIÓN DE WEBSOCKETS (TIEMPO REAL)
 // ==========================================
-// 👉 2. Envolvemos Express con el servidor HTTP nativo
 const server = http.createServer(app);
 
-// 👉 3. Inicializamos Socket.io y lo exportamos para usarlo en otros archivos
 export const io = new Server(server, {
   cors: {
     origin: ["http://localhost:5173", "https://transandes-frontend.vercel.app"], // Permite conexión desde tu React
@@ -42,7 +39,6 @@ export const io = new Server(server, {
 
 export const getIO = () => io;
 
-// 👉 4. Escuchamos conexiones entrantes
 io.on("connection", (socket) => {
   console.log(`⚡ Cliente Web conectado en tiempo real (ID: ${socket.id})`);
 
@@ -85,7 +81,7 @@ app.get("/webhook", (req: Request, res: Response) => {
 // ==========================================
 // 🔌 API INTERNA (Rutas delegadas)
 // ==========================================
-// 🚨 AQUÍ ESTABA EL ERROR: Agregamos el /admin para que coincida con tu Frontend 🚨
+
 app.use("/api", apiRoutes);
 
 // --- HELPER: FILTRO ANTI-TELEPATÍA ---
@@ -642,7 +638,7 @@ const procesarFlujoBot = async (
         let latDestino: number | undefined = undefined;
         let lngDestino: number | undefined = undefined;
 
-        // 🛣️ NUEVO: Verificamos si el usuario decidió saltarse el destino
+        //  Verificamos si el usuario decidió saltarse el destino
         if (
           respDestinoLimpia === "omitir" ||
           respDestinoLimpia === "no" ||
@@ -713,7 +709,7 @@ const procesarFlujoBot = async (
       case EstadoBot.ESPERANDO_CONFIRMACION:
         const resp = textoMensaje.toLowerCase();
         if (resp.includes("si") || resp.includes("sí")) {
-          // --- 💾 NUEVO: GUARDAR EN MONGODB Y LANZAR ALERTA A TELEGRAM ---
+          // ---  GUARDAR EN MONGODB Y LANZAR ALERTA A TELEGRAM ---
           try {
             const nuevoViaje = await ViajeModel.create({
               telefonoCliente: telefonoCliente,
@@ -1166,7 +1162,7 @@ const procesarFlujoBot = async (
           }
         }
 
-        // 💬 NUEVO: Le pedimos el comentario adicional
+        //  Le pedimos el comentario adicional
         await enviarMensajeTexto(
           telefonoCliente,
           "⭐ ¡Gracias por tu calificación!\n\n¿Te gustaría dejar un breve comentario o reseña sobre el servicio prestado? (Escribe tu comentario, o responde *NO* para terminar).",
@@ -1227,7 +1223,7 @@ const procesarFlujoBot = async (
 // 📥 RECEPCIÓN DE MENSAJES (WEBHOOK POST)
 // ==========================================
 
-// --- NUEVO: BUFFER PARA MENSAJES MÚLTIPLES ---
+// --- BUFFER PARA MENSAJES MÚLTIPLES ---
 const bufferMensajes = new Map<
   string,
   { texto: string; timeout: NodeJS.Timeout }
@@ -1302,7 +1298,7 @@ app.post("/webhook", async (req: Request, res: Response) => {
   }
 });
 
-// 👉 5. Iniciamos la Base de Datos y encendemos el servidor principal (HTTP + WebSockets)
+//  Iniciamos la Base de Datos y encendemos el servidor principal (HTTP + WebSockets)
 conectarDB().then(() => {
   server.listen(PORT, () => {
     console.log(

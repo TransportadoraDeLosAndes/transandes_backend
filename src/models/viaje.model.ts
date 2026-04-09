@@ -13,9 +13,9 @@ export interface IViaje extends Document {
   tipoServicio: "INMEDIATO" | "AGENDADO";
 
   origen: string;
-  coordenadasOrigen?: ICoordenadas; // ✅ AÑADIDO
+  coordenadasOrigen?: ICoordenadas; 
   destino: string;
-  coordenadasDestino?: ICoordenadas; // ✅ AÑADIDO
+  coordenadasDestino?: ICoordenadas; 
 
   referenciaOrigen?: string;
   numeroPasajeros?: string;
