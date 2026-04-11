@@ -1230,6 +1230,7 @@ const bufferMensajes = new Map<
 >();
 
 app.post("/webhook", async (req: Request, res: Response) => {
+  console.log("🚨 LLEGÓ ALGO DE META:", JSON.stringify(req.body, null, 2));
   const body = req.body;
 
   if (body.object === "whatsapp_business_account") {
